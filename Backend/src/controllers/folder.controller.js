@@ -3,7 +3,9 @@ import folder from "../models/folder.model.js";
 export const fetchAllFolder = async (req, res) => {
   try {
     const existUser = req.user;
+    console.log(existUser)
     const folders = await folder.find({ userId: existUser.id });
+    console.log(folders)
     res.status(200).json({
       message: "Folders fetched Successfully!!!",
       data: folders,

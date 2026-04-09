@@ -17,6 +17,7 @@ import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
 import Folderpage from "../pages/Dashboard/Folder/FolderPage";
 import NotePage from "../pages/Dashboard/Note/NotePage/NotePage";
 import NoteEditorLayout from "../components/layout/NoteEditorLayout/NoteEditorLayout";
+import Chatbot from "../components/ui/Chatbot/Chatbot";
 
 const Publicroutes = [
   {
@@ -81,6 +82,7 @@ const Protectedroutes = [
     element: (
       <ProtectedRoute>
         <DashboardLayout />
+        <Chatbot/>
       </ProtectedRoute>
     ),
     children: [
