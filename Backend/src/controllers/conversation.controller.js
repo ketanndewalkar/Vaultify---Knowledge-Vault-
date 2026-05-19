@@ -6,6 +6,7 @@ import { SYSTEM_PROMPT } from "../utils/SYSTEM_PROMPT.js";
 
 export const createSession = async (req, res) => {
   try {
+    console.log("true")
     const userId = req.user.id;
     const session = await Session.create({ userId });
     const conversation = await Conversation.create({
@@ -33,10 +34,8 @@ export const handleChat = async (req, res) => {
   try {
     const userId = req.user.id;
     const { query, sessionId } = req.body;
-    const session = await Session.findById("69cfcccc86db8f2a96d4ff3e");
-    // const session = await Session.findById(sessionId);
-    // const conversation = await Conversation.findOne({ sessionId });
-    const conversation = await Conversation.findOne({ sessionId:"69cfcccc86db8f2a96d4ff3e" });
+    const session = await Session.findById(sessionId);
+    const conversation = await Conversation.findOne({ sessionId });
     if (!session || !conversation) {
       res.status(500).json({
         message: "Server Error",

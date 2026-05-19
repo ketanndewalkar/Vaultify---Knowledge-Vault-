@@ -16,7 +16,11 @@ const Chatbot = () => {
     messagesEndRef,
     handleSendMessage,
     handleSuggestionClick,
+    isIntilized,
+    sessionId
   } = useChatbot();
+
+  const widgetShell = `fixed bottom-24 right-6 w-[calc(100vw-48px)] max-w-[400px] h-[calc(100vh-140px)] max-h-[750px] bg-[#F4F4F4] rounded-[36px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden flex flex-col z-50 border-[6px] border-white origin-bottom-right chatbot-widget-container`;
 
   return (
     <>
@@ -32,8 +36,10 @@ const Chatbot = () => {
       )}
 
       {/* Phone-like Chat Widget */}
-      {(isOpen || isClosing) && (
-        <div className={`fixed bottom-24 right-6 w-[calc(100vw-48px)] max-w-[400px] h-[calc(100vh-140px)] max-h-[750px] bg-[#F4F4F4] rounded-[36px] shadow-[0_20px_60px_rgba(0,0,0,0.15)] overflow-hidden flex flex-col z-50 border-[6px] border-white origin-bottom-right chatbot-widget-container ${isClosing ? 'chatbot-widget-closing' : ''}`}>
+      {(isOpen || isClosing) && (isIntilized ? (sessionId ?
+
+        /* ── Main Chat ── */
+        <div className={`${widgetShell} ${isClosing ? 'chatbot-widget-closing' : ''}`}>
 
           {/* Header */}
           <div className="px-6 py-5 flex justify-between items-center z-10 pt-8 chatbot-header-animate">
@@ -128,6 +134,73 @@ const Chatbot = () => {
               </p>
               <div className="w-[130px] h-[5px] bg-[#111] rounded-full mt-1.5 mb-1.5"></div>
             </div>
+          </div>
+        </div>
+
+        : /* ── No Session State ── */
+        <div className={`${widgetShell} ${isClosing ? 'chatbot-widget-closing' : ''}`}>
+          {/* Header */}
+          <div className="px-6 pt-8 pb-5 flex justify-between items-center">
+            <button
+              className="text-[#888] bg-transparent border border-[#CCC] p-1.5 rounded-md hover:bg-black/5 flex items-center justify-center cursor-pointer"
+              onClick={closeChat}
+              aria-label="Close Chat"
+            >
+              <PanelLeft size={20} strokeWidth={1.5} />
+            </button>
+            <div className="w-8 h-8 rounded-full bg-[radial-gradient(circle_at_35%_35%,#CDCDCD,#888888_55%,#444444)] shadow-sm"></div>
+          </div>
+
+          {/* Error Body */}
+          <div className="flex-1 flex flex-col items-center justify-center px-8 gap-5 -mt-8">
+            <div className="w-16 h-16 rounded-full bg-[radial-gradient(circle_at_35%_35%,#E0E0E0,#BDBDBD_55%,#9E9E9E)] shadow-inner opacity-60"></div>
+            <div className="text-center">
+              <p className="text-[20px] font-semibold text-[#222] tracking-[-0.02em] m-0">Session Unavailable</p>
+              <p className="text-[14px] text-[#999] mt-2 m-0 leading-relaxed">
+                We couldn't start a session.<br />Please try again later.
+              </p>
+            </div>
+            <button
+              onClick={closeChat}
+              className="mt-2 bg-[#111] text-white text-[14px] font-medium px-6 py-2.5 rounded-full border-none cursor-pointer hover:bg-[#333] transition-colors duration-200"
+            >
+              Close
+            </button>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="pb-5 flex justify-center">
+            <div className="w-[130px] h-[5px] bg-[#111] rounded-full"></div>
+          </div>
+        </div>
+
+      ) : /* ── Initializing State ── */
+        <div className={`${widgetShell} ${isClosing ? 'chatbot-widget-closing' : ''}`}>
+          {/* Header skeleton */}
+          <div className="px-6 pt-8 pb-5 flex justify-between items-center">
+            <div className="w-8 h-8 rounded-md border border-[#CCC] bg-[#EBEBEB] animate-pulse"></div>
+            <div className="w-8 h-8 rounded-full bg-[radial-gradient(circle_at_35%_35%,#CDCDCD,#888888_55%,#444444)] shadow-sm opacity-40 animate-pulse"></div>
+          </div>
+
+          {/* Loading Body */}
+          <div className="flex-1 flex flex-col items-center justify-center px-8 gap-4 -mt-8">
+            <div className="relative w-16 h-16">
+              <div className="w-16 h-16 rounded-full bg-[radial-gradient(circle_at_35%_35%,#CDCDCD,#888888_55%,#444444)] shadow-md animate-pulse"></div>
+              <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_35%_35%,#CDCDCD,#888888_55%,#444444)] opacity-30 animate-ping"></div>
+            </div>
+            <div className="text-center">
+              <p className="text-[20px] font-semibold text-[#222] tracking-[-0.02em] m-0">Starting up…</p>
+              <p className="text-[14px] text-[#999] mt-2 m-0">Setting up your session</p>
+            </div>
+            <div className="w-full flex flex-col gap-2 mt-2">
+              <div className="h-3 bg-[#E0E0E0] rounded-full animate-pulse w-3/4 mx-auto"></div>
+              <div className="h-3 bg-[#E0E0E0] rounded-full animate-pulse w-1/2 mx-auto"></div>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div className="pb-5 flex justify-center">
+            <div className="w-[130px] h-[5px] bg-[#111] rounded-full opacity-20 animate-pulse"></div>
           </div>
         </div>
       )}

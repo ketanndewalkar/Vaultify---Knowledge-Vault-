@@ -6,6 +6,7 @@ import { Toaster } from "../../utils/Toaster";
 import { useAuthStore } from "../../stores/AuthStore";
 import Loader from "react-js-loader";
 import { errorHandler } from "../../utils/errorHandler";
+import { useEffect } from "react";
 export default function LoginPage() {
   const [formData, setFormData] = useState({
     email: "",
@@ -13,7 +14,7 @@ export default function LoginPage() {
     remember: false,
   });
   const navigate = useNavigate();
-  const {setAuth} = useAuthStore();
+  const {setAuth,user} = useAuthStore();
   const {mutate,isPending} = useMutation({
     mutationFn :(formData)=>loginUser(formData,setAuth,navigate),
     onSuccess : (res)=>{Toaster({title:res.data.message,status:"success"})},
@@ -29,7 +30,9 @@ export default function LoginPage() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
-
+  useEffect(()=>{
+    if(user) navigate("/")
+  },[])
 
   
 

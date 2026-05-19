@@ -62,6 +62,7 @@ const Publicroutes = [
     path: "/login",
     element: (
       <>
+      
         <LoginPage />
       </>
     ),

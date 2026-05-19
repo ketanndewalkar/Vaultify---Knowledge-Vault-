@@ -5,6 +5,7 @@ import { signUpUser } from "./AuthHandler";
 import Loader from "react-js-loader";
 import { useMutation } from "@tanstack/react-query";
 import { errorHandler } from "../../utils/errorHandler";
+import { useEffect } from "react";
 export default function SignupPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -14,6 +15,7 @@ export default function SignupPage() {
     terms: false,
   });
   const navigate = useNavigate();
+  const { setAuth, user } = useAuthStore();
   const { mutate, isPending } = useMutation({
     mutationFn: (formData) => signUpUser(formData, navigate),
     onSuccess: (res) => {
@@ -30,6 +32,10 @@ export default function SignupPage() {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+
+  useEffect(() => {
+    if (user) navigate("/");
+  }, []);
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center p-4">
@@ -48,7 +54,7 @@ export default function SignupPage() {
           <h2 className="text-3xl font-bold text-gray-800 mb-8 w-full text-center">
             Create Account
           </h2>
-
+          <Button></Button>
           <form className="space-y-6 w-full md:w-[50%]">
             {/* NAME */}
 

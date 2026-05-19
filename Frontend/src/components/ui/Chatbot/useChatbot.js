@@ -6,6 +6,8 @@ const useChatbot = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
+  const [isIntilized, setIsIntilized] = useState(false);
+  const [sessionId, setSessionId] = useState("")
   const messagesEndRef = useRef(null);
 
   const closeChat = () => {
@@ -27,9 +29,28 @@ const useChatbot = () => {
   }, [messages, isTyping, isOpen]);
 
   const customApiCall = async (message) => {
-   const res = await API.post("/convo/query",{query:message})
-   return res.data.message
+    const res = await API.post("/convo/query", { query: message, sessionId })
+    return res.data.message
   };
+  let getSessionId = async () => {
+    try {
+      const res = await API.get("/convo/get-chat-sessio")
+      console.log(res)
+      if (res) {
+        setSessionId(res.data.data.session._id)
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsIntilized(true)
+    }
+  }
+
+  useEffect(() => {
+    if (!sessionId) {
+      getSessionId();
+    }
+  }, [isOpen])
 
   const handleSendMessage = async (e) => {
     e?.preventDefault();
@@ -53,7 +74,7 @@ const useChatbot = () => {
   const handleSuggestionClick = async (text) => {
     setInputValue("");
     setMessages((prev) => [...prev, { role: "user", content: text }]);
-    
+
     setIsTyping(true);
     try {
       const botResponse = await customApiCall(text);
@@ -77,6 +98,8 @@ const useChatbot = () => {
     messagesEndRef,
     handleSendMessage,
     handleSuggestionClick,
+    isIntilized,
+    sessionId
   };
 };
 
