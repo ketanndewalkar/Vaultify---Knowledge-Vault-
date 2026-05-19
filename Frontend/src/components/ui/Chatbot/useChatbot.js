@@ -34,7 +34,7 @@ const useChatbot = () => {
   };
   let getSessionId = async () => {
     try {
-      const res = await API.get("/convo/get-chat-sessio")
+      const res = await API.get("/convo/get-chat-session")
       console.log(res)
       if (res) {
         setSessionId(res.data.data.session._id)
