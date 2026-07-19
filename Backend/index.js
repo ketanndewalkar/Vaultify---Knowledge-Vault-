@@ -34,4 +34,4 @@ mongoDbConnect()
       console.log("listening for the Port ", PORT);
     });
   })
-  .catch((err) => console.log("Issue in the conenction"));
+  .catch((err) => console.log(err));
