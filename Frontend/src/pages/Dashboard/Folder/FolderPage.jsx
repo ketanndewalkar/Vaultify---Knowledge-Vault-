@@ -141,7 +141,7 @@ const Folderpage = () => {
             </>
           ) : (
             <>
-              {data.map((ele) => (
+              {data.length != 0 && data.map((ele) => (
                 
                   <FolderElement
                   ele={ele}
@@ -154,6 +154,7 @@ const Folderpage = () => {
                   />
                 
               ))}
+              {data.length == 0 && <div className="size-full flex items-center justify-center"><p>You Haven`t Created Folders Yet.</p></div>}
             </>
           )}
         </div>
