@@ -55,7 +55,7 @@ export default function SignupPage() {
           <h2 className="text-3xl font-bold text-gray-800 mb-8 w-full text-center">
             Create Account
           </h2>
-          <Button></Button>
+          
           <form className="space-y-6 w-full md:w-[50%]">
             {/* NAME */}
 
