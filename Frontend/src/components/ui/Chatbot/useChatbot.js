@@ -65,6 +65,7 @@ const useChatbot = () => {
       const botResponse = await customApiCall(userMsg);
       setMessages((prev) => [...prev, { role: "assistant", content: botResponse }]);
     } catch (error) {
+      console.log(error)
       setMessages((prev) => [...prev, { role: "assistant", content: "Oops! Something went wrong." }]);
     } finally {
       setIsTyping(false);

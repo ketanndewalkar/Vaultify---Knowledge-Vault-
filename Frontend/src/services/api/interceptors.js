@@ -14,7 +14,7 @@ axiosInstance.interceptors.response.use(
       return Promise.reject(err);
     }
     
-    if ((err?.response?.data?.message === "Token expired" || err?.response?.data?.message === "Unauthorized") && !originalRequest._retry) {
+    if ((err?.response?.data?.message === "Token expired") && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
         

@@ -63,14 +63,6 @@ const HomeHero = () => {
                   Never lose a brilliant idea again. Jot it down and vault it instantly.
                 </p>
               </div>
-              <div className="absolute -bottom-6 -right-4 w-16 h-16 bg-white rounded-2xl soft-shadow flex items-center justify-center border border-slate-50">
-                <div className="grid grid-cols-2 gap-1.5">
-                  <div className="w-3 h-3 rounded-full bg-[#38BDF8]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#1E293B]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#1E293B]"></div>
-                  <div className="w-3 h-3 rounded-full bg-[#1E293B]"></div>
-                </div>
-              </div>
             </div>
           </div>
 

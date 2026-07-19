@@ -6,7 +6,6 @@ import { SYSTEM_PROMPT } from "../utils/SYSTEM_PROMPT.js";
 
 export const createSession = async (req, res) => {
   try {
-    console.log("true")
     const userId = req.user.id;
     const session = await Session.create({ userId });
     const conversation = await Conversation.create({
@@ -93,6 +92,7 @@ export const handleChat = async (req, res) => {
 
       // Handle parsed response types
       if (parseOut && parseOut.type === "output") {
+        console.log(parseOut)
         res.status(200).json({
           message: parseOut.msg,
         });

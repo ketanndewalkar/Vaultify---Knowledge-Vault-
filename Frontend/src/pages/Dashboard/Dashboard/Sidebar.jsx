@@ -7,8 +7,6 @@ const Sidebar = ({ open, setOpen }) => {
   const navItems = [
     { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
     { title: "Folders", to: "/dashboard/folders", icon: FolderOpen },
-    { title: "Notes", to: "/dashboard/notes", icon: StickyNote },
-    { title: "Links", to: "/dashboard/links", icon: LinkIcon },
   ];
 
   return (

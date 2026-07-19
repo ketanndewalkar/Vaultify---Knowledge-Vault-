@@ -6,6 +6,7 @@ import Loader from "react-js-loader";
 import { useMutation } from "@tanstack/react-query";
 import { errorHandler } from "../../utils/errorHandler";
 import { useEffect } from "react";
+import { useAuthStore } from "@/stores/AuthStore";
 export default function SignupPage() {
   const [formData, setFormData] = useState({
     name: "",
